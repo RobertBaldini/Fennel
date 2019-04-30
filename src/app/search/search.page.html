@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-searchbar 
+    [(ngModel)]="searchValue"
+    (ionChange)="goSearch()" 
+    debounce="2000">
+  </ion-searchbar>
+
+  <br />
+
+  <ion-button expand="full" fill="outline" (click)="goSearch()">
+    Search
+  </ion-button>
+
+</ion-content>

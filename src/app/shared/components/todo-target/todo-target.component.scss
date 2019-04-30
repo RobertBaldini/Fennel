@@ -1,0 +1,50 @@
+
+.target-wrapper {
+    position: relative;
+  }
+  .target-block {
+    display: inline-block;
+    margin: 5px 5px;
+    height: 100px;
+    width: 100px;  
+  }
+  .target-block label {
+    vertical-align: middle;
+  }
+  .target-block img {                      
+    display: block;
+  }
+  .target-block input {
+    display: none;
+  }
+  .target-block input:checked + .checkmark-wrapper {
+    background: rgba(121, 255, 144, 0.5);
+  }
+  .target-block input:checked + .checkmark-wrapper::after {
+    content: '✔';    
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 30px; height: 30px;
+    transform: translate(-50%,-50%);
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+  .checkmark-wrapper {
+    position: absolute;
+    top: 0;
+    // left: 5px;                          
+    height: 98%;
+    width: 100px;              
+    padding: 0 10px;
+    box-sizing: border-box;
+    pointer-events: none;
+    border-radius:500px;
+  }
+  
+  img {
+      border-radius: 50%;   
+  }
+  

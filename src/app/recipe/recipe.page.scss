@@ -1,0 +1,29 @@
+
+.target-wrapper {
+  // padding-inline-start: 0px; // disable left-padding
+  // -webkit-padding-start: 0px; // disable left-padding
+  --inner-border-width: 0px 0px 0px 0px; // disable double bottom border
+}
+
+img {
+    border-radius: 50%;   
+}
+
+.ghost {
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* msie */
+}
+
+.smoll-col {
+  // set the column size to a set pixel size,
+  // instead of percent
+  flex: 0 0 100px;
+}
+
+.spacer-col {
+  width: 110px;
+}
+
+.step-target-crosshairs {
+  width: 97px; height: 97px; color: darkgray
+}
