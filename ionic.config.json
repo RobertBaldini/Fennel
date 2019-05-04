@@ -1,6 +1,8 @@
 {
   "name": "the-fennel-countdown",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "a1b60f36"
 }

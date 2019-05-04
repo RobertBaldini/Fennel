@@ -11,11 +11,12 @@
 
 <ion-content padding>
 
-  <ion-searchbar 
-    [(ngModel)]="searchValue"
+  <ion-searchbar [(ngModel)]="searchValue"></ion-searchbar>
+  <!-- 
     (ionChange)="goSearch()" 
-    debounce="2000">
-  </ion-searchbar>
+    debounce="2000"
+    // disabled out of concern for API request daily limits
+  -->
 
   <br />
 

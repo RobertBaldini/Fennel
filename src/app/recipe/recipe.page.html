@@ -15,14 +15,6 @@
 
   <img src="https://webknox.com/recipeImages/{{recipe.id}}-556x370.jpg" style="width: 100%; border-radius: 0%">
 
-  <!-- <div class="image_wrapper image_grid" *ngFor="let image of ingredientImages; let i = index">
-    <label for="imgBlock{{i}}">
-      <img src="{{image}}" />
-    </label>
-    <input type="checkbox" name="imgBlock" id="imgBlock{{i}}" />
-    <div class="caption"></div>
-  </div> -->
-
   <div padding>
 
     <h1>{{recipe.title}}</h1>
@@ -75,6 +67,11 @@
             </ion-col>
             <ion-col>
               <div padding *ngIf="stepHasAnyDisplayItems(nextStep)">
+                <div style="display: inline-block" *ngFor="let equip of nextStep.equipment">
+                  <fennel-todo-target>
+                    <img src="https://spoonacular.com/cdn/equipment_100x100/{{equip.image}}">
+                  </fennel-todo-target>
+                </div>
                 <div style="display: inline-block" *ngFor="let ingredient of nextStep.ingredients">
                   <fennel-todo-target>
                     <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}">

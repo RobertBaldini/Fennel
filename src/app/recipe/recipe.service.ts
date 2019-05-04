@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Recipe } from '../core/models/recipe';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RecipeService {
     private http: HttpClient
   ) { }
 
-  getExample() : Observable<any> {
-    return this.http.get("./assets/example-recipe.json");
+  getExample() : Observable<Recipe> {
+    return this.http.get<Recipe>("./assets/example-recipe.json");
   }
 }

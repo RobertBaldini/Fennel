@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SearchService } from './search.service';
+import { RecipeIndex } from '../core/models/recipe-index';
 
 @Component({
     selector: 'app-search',
@@ -9,10 +9,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SearchPage implements OnInit {
 
-    private searchValue: string;
+    searchValue: string;
+    recipeIndex: RecipeIndex[] = [] as RecipeIndex[];
 
     constructor(
-        private http: HttpClient
+        private searchService: SearchService
     ) { }
 
     ngOnInit() {
@@ -23,6 +24,11 @@ export class SearchPage implements OnInit {
             return;
 
         console.log('goSearch: ' + this.searchValue);
+
+        this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
+            this.recipeIndex = searchResults.results;
+            debugger;
+        });
     }
 
 }
