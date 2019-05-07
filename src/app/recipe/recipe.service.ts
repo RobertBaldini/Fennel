@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Recipe } from '../core/models/recipe';
 
@@ -12,7 +12,13 @@ export class RecipeService {
     private http: HttpClient
   ) { }
 
-  getExample() : Observable<Recipe> {
-    return this.http.get<Recipe>("./assets/example-recipe.json");
+  getExample(): Observable<Recipe> {
+    const testerUri = "./assets/examples/example-recipe.json";
+    return this.http.get<Recipe>(testerUri);
+  }
+
+  getRecipeById(recipeId: number): Observable<Recipe> {
+    const apiUri = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${recipeId}/information`;
+    return this.http.get<Recipe>(apiUri);
   }
 }

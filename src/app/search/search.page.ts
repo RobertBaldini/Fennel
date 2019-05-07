@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.service';
 import { RecipeIndex } from '../core/models/recipe-index';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-search',
@@ -13,7 +14,8 @@ export class SearchPage implements OnInit {
     recipeIndex: RecipeIndex[] = [] as RecipeIndex[];
 
     constructor(
-        private searchService: SearchService
+        private searchService: SearchService,
+        private router: Router
     ) { }
 
     ngOnInit() {
@@ -27,8 +29,11 @@ export class SearchPage implements OnInit {
 
         this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
             this.recipeIndex = searchResults.results;
-            debugger;
         });
+    }
+
+    navigateToRecipe(recipeId: any) {
+        this.router.navigateByUrl('/recipe/' + recipeId);
     }
 
 }

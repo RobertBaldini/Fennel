@@ -24,4 +24,13 @@
     Search
   </ion-button>
 
+  <ion-virtual-scroll [items]="recipeIndex" approxItemHeight="370px">
+    <ion-card *virtualItem="let recipeRef" (click)="navigateToRecipe(recipeRef.id)">
+      <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'" style="height: 206px;"></ion-img>
+      <ion-card-header>
+        <h1>{{ recipeRef.title }}</h1>
+      </ion-card-header>
+    </ion-card>
+  </ion-virtual-scroll>
+
 </ion-content>
