@@ -11,12 +11,9 @@ const routes: Routes = [
     path: 'home',
     loadChildren: './home/home.module#HomePageModule'
   },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
   { path: 'recipe', loadChildren: './recipe/recipe.module#RecipePageModule' },
-  { path: 'search', loadChildren: './search/search.module#SearchPageModule' }
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'bookmarks', loadChildren: './bookmarks/bookmarks.module#BookmarksPageModule' }
 ];
 
 @NgModule({
