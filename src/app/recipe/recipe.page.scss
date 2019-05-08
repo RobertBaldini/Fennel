@@ -5,13 +5,23 @@
   --inner-border-width: 0px 0px 0px 0px; // disable double bottom border
 }
 
-img {
-    border-radius: 50%;   
+.fav-slot {
+  font-size: 25px;
+  color: #bbb;
+}
+
+.fav-slot .liked {
+  font-size: 25px;
+  color: #d00;
 }
 
 .ghost {
   opacity: 0.4;
   filter: alpha(opacity=40); /* msie */
+}
+
+img {
+    border-radius: 50%;   
 }
 
 .smoll-col {

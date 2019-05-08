@@ -3,6 +3,10 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end" padding class="fav-slot" (click)="toggleFavorite()">
+      <ion-icon [name]="'heart'" *ngIf="isFavorite" class="liked"></ion-icon>
+      <ion-icon [name]="'add-circle'" *ngIf="!isFavorite"></ion-icon>
+    </ion-buttons>
     <ion-title>
       Recipe
     </ion-title>

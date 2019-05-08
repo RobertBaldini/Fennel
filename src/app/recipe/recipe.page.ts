@@ -13,6 +13,7 @@ export class RecipePage implements OnInit {
 
     recipeId: number;
     recipe: Recipe = {} as Recipe;
+    isFavorite = false;
 
     constructor(
         private recipeService: RecipeService,
@@ -42,6 +43,10 @@ export class RecipePage implements OnInit {
         var stepHasEquipment = step.equipment && step.equipment.length > 0;
         var stepHasTime = !!step.length;
         return stepHasIngredients || stepHasEquipment || stepHasTime;
+    }
+
+    toggleFavorite() {
+        this.isFavorite = !this.isFavorite;
     }
 
 }
