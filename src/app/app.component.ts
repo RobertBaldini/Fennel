@@ -61,8 +61,8 @@ export class AppComponent {
             icon: 'nutrition'
         },
         {
-            title: 'Desert',
-            url: '/search',
+            title: 'Dessert',
+            url: '/recipe', //TODO: change back
             icon: 'ice-cream'
         }
 

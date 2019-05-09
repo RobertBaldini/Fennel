@@ -3,6 +3,8 @@ import { Recipe } from '../core/models/recipe';
 import { RecipeService } from './recipe.service';
 import { Step } from '../core/models/step';
 import { ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { Bookmark } from '../core/models/bookmark';
 
 @Component({
     selector: 'app-recipe',
@@ -17,7 +19,8 @@ export class RecipePage implements OnInit {
 
     constructor(
         private recipeService: RecipeService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private storage: Storage
     ) { }
 
     ngOnInit() {
@@ -28,7 +31,10 @@ export class RecipePage implements OnInit {
         if (this.recipeId <= 0) {
             this.recipeService.getExample().subscribe(result => {
                 this.recipe = result;
-                // this.recipe.extendedIngredients.forEach(ingred => console.log(ingred.name));
+                let id = this.recipeId = this.recipe.id;
+                this.storage.get('favorites').then(favs => {
+                    this.isFavorite = (favs || []).some(f => f.recipeId === id);
+                });
             });
             return;
         }
@@ -46,7 +52,22 @@ export class RecipePage implements OnInit {
     }
 
     toggleFavorite() {
-        this.isFavorite = !this.isFavorite;
+        this.storage.get('favorites').then(favs => {
+            favs = favs || [];
+            const existingBookmarkIndex = favs.findIndex(f => f.recipeId === this.recipe.id);
+            if (existingBookmarkIndex > -1) { 
+                favs.splice(existingBookmarkIndex, 1);
+                this.storage.set('favorites', favs);
+                this.isFavorite = false;
+                return;
+             }
+            let bookmark = {} as Bookmark;
+            bookmark.recipeId = this.recipe.id;
+            bookmark.title = this.recipe.title;
+            favs.push(bookmark);
+            this.storage.set('favorites', favs);
+            this.isFavorite = true;
+        });
     }
 
 }
