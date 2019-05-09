@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-bookmarks',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookmarksPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private storage: Storage
+  ) { }
 
   ngOnInit() {
   }

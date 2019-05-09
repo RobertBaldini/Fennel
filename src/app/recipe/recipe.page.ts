@@ -5,6 +5,7 @@ import { Step } from '../core/models/step';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Bookmark } from '../core/models/bookmark';
+import { StorageRefs } from '../shared/storage/storage-refs';
 
 @Component({
     selector: 'app-recipe',
@@ -32,7 +33,7 @@ export class RecipePage implements OnInit {
             this.recipeService.getExample().subscribe(result => {
                 this.recipe = result;
                 let id = this.recipeId = this.recipe.id;
-                this.storage.get('favorites').then(favs => {
+                this.storage.get(StorageRefs.FAVORITES).then(favs => {
                     this.isFavorite = (favs || []).some(f => f.recipeId === id);
                 });
             });
@@ -52,12 +53,12 @@ export class RecipePage implements OnInit {
     }
 
     toggleFavorite() {
-        this.storage.get('favorites').then(favs => {
+        this.storage.get(StorageRefs.FAVORITES).then(favs => {
             favs = favs || [];
             const existingBookmarkIndex = favs.findIndex(f => f.recipeId === this.recipe.id);
             if (existingBookmarkIndex > -1) { 
                 favs.splice(existingBookmarkIndex, 1);
-                this.storage.set('favorites', favs);
+                this.storage.set(StorageRefs.FAVORITES, favs);
                 this.isFavorite = false;
                 return;
              }
@@ -65,7 +66,7 @@ export class RecipePage implements OnInit {
             bookmark.recipeId = this.recipe.id;
             bookmark.title = this.recipe.title;
             favs.push(bookmark);
-            this.storage.set('favorites', favs);
+            this.storage.set(StorageRefs.FAVORITES, favs);
             this.isFavorite = true;
         });
     }
