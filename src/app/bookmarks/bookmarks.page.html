@@ -13,14 +13,14 @@
 
   <ion-list>
     <ion-item *ngFor="let bookmark of bookmarks" style="padding-top: 10px">
-      <ion-row>
-      <ion-col>
-        <ion-img [src]="'https://webknox.com/recipeImages/' + bookmark.recipeId + '-556x370.jpg'"></ion-img>
-      </ion-col>
-      <ion-col>
-        <h5>{{ bookmark.title }}</h5>
-      </ion-col>
-    </ion-row>
+      <ion-row (click)="navigateToRecipe(bookmark.recipeId)">
+        <ion-col>
+          <ion-img [src]="'https://webknox.com/recipeImages/' + bookmark.recipeId + '-556x370.jpg'"></ion-img>
+        </ion-col>
+        <ion-col>
+          <h5>{{ bookmark.title }}</h5>
+        </ion-col>
+      </ion-row>
     </ion-item>
   </ion-list>
 
