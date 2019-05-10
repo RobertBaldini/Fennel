@@ -14,7 +14,6 @@ import { StorageRefs } from '../shared/storage/storage-refs';
 })
 export class RecipePage implements OnInit {
 
-    recipeId: number;
     recipe: Recipe = {} as Recipe;
     isFavorite = false;
 
@@ -25,23 +24,21 @@ export class RecipePage implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.recipeId = +this.route.snapshot.paramMap.get('id');
+        const recipeId = +this.route.snapshot.paramMap.get('id');
 
-        console.log(this.recipeId);
-
-        if (this.recipeId <= 0) {
-            this.recipeService.getExample().subscribe(result => {
-                this.recipe = result;
-                let id = this.recipeId = this.recipe.id;
-                this.storage.get(StorageRefs.FAVORITES).then(favs => {
-                    this.isFavorite = (favs || []).some(f => f.recipeId === id);
-                });
-            });
+        if (recipeId <= 0) {
+            this.recipeService.getExample().subscribe(result => this.loadRecipe(result));
             return;
         }
 
-        this.recipeService.getRecipeById(this.recipeId).subscribe(result => {
-            this.recipe = result;
+        this.recipeService.getRecipeById(recipeId).subscribe(result => this.loadRecipe(result));
+    }
+
+    loadRecipe(recipe: Recipe) {
+        this.recipe = recipe;
+        let id = recipe.id;
+        this.storage.get(StorageRefs.FAVORITES).then(favs => {
+            this.isFavorite = (favs || []).some(f => f.recipeId === id);
         });
     }
 
@@ -57,18 +54,26 @@ export class RecipePage implements OnInit {
             favs = favs || [];
             const existingBookmarkIndex = favs.findIndex(f => f.recipeId === this.recipe.id);
             if (existingBookmarkIndex > -1) { 
-                favs.splice(existingBookmarkIndex, 1);
-                this.storage.set(StorageRefs.FAVORITES, favs);
-                this.isFavorite = false;
-                return;
+                this.removeFavorite(favs, existingBookmarkIndex);
              }
-            let bookmark = {} as Bookmark;
-            bookmark.recipeId = this.recipe.id;
-            bookmark.title = this.recipe.title;
-            favs.push(bookmark);
-            this.storage.set(StorageRefs.FAVORITES, favs);
-            this.isFavorite = true;
+             else
+                this.addFavorite(favs);
         });
+    }
+
+    addFavorite(bookmarks) {
+        let bookmark = {} as Bookmark;
+        bookmark.recipeId = this.recipe.id;
+        bookmark.title = this.recipe.title;
+        bookmarks.push(bookmark);
+        this.storage.set(StorageRefs.FAVORITES, bookmarks);
+        this.isFavorite = true;
+    }
+
+    removeFavorite(bookarks, bookmarkIndex) {
+        bookarks.splice(bookmarkIndex, 1);
+        this.storage.set(StorageRefs.FAVORITES, bookarks);
+        this.isFavorite = false;
     }
 
 }
