@@ -14,7 +14,7 @@
   <ion-list>
 
     <ion-item *ngFor="let bookmark of bookmarksTop3" style="padding-top: 10px">
-      <ion-row (click)="navigateToRecipe(bookmark.recipeId)">
+      <ion-row [routerLink]="['/recipe/' + bookmark.recipeId]">
         <ion-col>
           <ion-img [src]="'https://webknox.com/recipeImages/' + bookmark.recipeId + '-556x370.jpg'"></ion-img>
         </ion-col>

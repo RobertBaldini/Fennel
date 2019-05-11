@@ -65,23 +65,24 @@
               </div>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-col class="smoll-col">
-              <div class="spacer-col"></div>
+          <ion-row *ngFor="let equip of nextStep.equipment">
+            <ion-col>
+              <ion-label text-right style="font-style: italic">{{equip.name}}</ion-label>
             </ion-col>
             <ion-col>
-              <div padding *ngIf="stepHasAnyDisplayItems(nextStep)">
-                <div style="display: inline-block" *ngFor="let equip of nextStep.equipment">
-                  <fennel-todo-target>
-                    <img src="https://spoonacular.com/cdn/equipment_100x100/{{equip.image}}">
-                  </fennel-todo-target>
-                </div>
-                <div style="display: inline-block" *ngFor="let ingredient of nextStep.ingredients">
-                  <fennel-todo-target>
-                    <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}">
-                  </fennel-todo-target>
-                </div>
-              </div>
+              <fennel-todo-target>
+                <img src="https://spoonacular.com/cdn/equipment_100x100/{{equip.image}}">
+              </fennel-todo-target>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let ingredient of nextStep.ingredients">
+            <ion-col>
+              <ion-label text-right style="font-style: italic">{{ingredient.name}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <fennel-todo-target>
+                <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}">
+              </fennel-todo-target>
             </ion-col>
           </ion-row>
         </ion-grid>
