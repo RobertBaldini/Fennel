@@ -3,6 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons padding slot="end">
+      <ion-icon [name]="'search'" [routerLink]="['/search']" style="font-size: larger"></ion-icon>
+    </ion-buttons>
     <ion-title>
       Home
     </ion-title>
@@ -39,21 +42,11 @@
       <ion-label style="font-weight: bold">Latest Searches</ion-label>
     </ion-list-header>
 
-    <ion-item href="https://ionicframework.com/docs/">
+    <ion-item *ngFor="let recentSearch of historyTop4">
       <ion-icon slot="start" color="medium" name="search"></ion-icon>
-      <ion-label>Ionic Documentation</ion-label>
+      <ion-label>{{recentSearch}}</ion-label>
     </ion-item>
-    <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-      <ion-icon slot="start" color="medium" name="search"></ion-icon>
-      <ion-label>Scaffold Out Your App</ion-label>
-    </ion-item>
-    <ion-item href="https://ionicframework.com/docs/layout/structure">
-      <ion-icon slot="start" color="medium" name="search"></ion-icon>
-      <ion-label>Change Your App Layout</ion-label>
-    </ion-item>
-    <ion-item href="https://ionicframework.com/docs/theming/basics">
-      <ion-icon slot="start" color="medium" name="search"></ion-icon>
-      <ion-label>Theme Your App</ion-label>
-    </ion-item>
+
   </ion-list>
+
 </ion-content>

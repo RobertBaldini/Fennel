@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.service';
 import { RecipeIndex } from '../core/models/recipe-index';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { StorageRefs } from '../shared/storage/storage-refs';
 
 @Component({
     selector: 'app-search',
@@ -15,7 +17,8 @@ export class SearchPage implements OnInit {
 
     constructor(
         private searchService: SearchService,
-        private router: Router
+        private router: Router,
+        private storage: Storage
     ) { }
 
     ngOnInit() {
@@ -25,7 +28,14 @@ export class SearchPage implements OnInit {
         if (!this.searchValue || this.searchValue.length < 1)
             return;
 
-        console.log('goSearch: ' + this.searchValue);
+        // console.log('goSearch: ' + this.searchValue);
+        this.storage.get(StorageRefs.SEARCHES).then(history => {
+            history = history || [];
+            history.unshift(this.searchValue);
+            let top100Truncated = history.slice(0, 100);
+            history = top100Truncated;
+            this.storage.set(StorageRefs.SEARCHES, history);
+        });
 
         this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
             this.recipeIndex = searchResults.results;
