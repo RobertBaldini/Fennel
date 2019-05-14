@@ -65,7 +65,7 @@ export class RecipePage implements OnInit {
         let bookmark = {} as Bookmark;
         bookmark.recipeId = this.recipe.id;
         bookmark.title = this.recipe.title;
-        bookmarks.push(bookmark);
+        bookmarks.unshift(bookmark);
         this.storage.set(StorageRefs.FAVORITES, bookmarks);
         this.isFavorite = true;
     }
