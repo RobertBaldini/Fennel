@@ -54,14 +54,16 @@
 
         <ion-grid>
           <ion-row>
-            <ion-col class="smoll-col">
-              <fennel-todo-target>
-                <ion-icon name="locate" class="step-target-crosshairs"></ion-icon>
-              </fennel-todo-target>
-            </ion-col>
             <ion-col>
               <div padding>
-                {{nextStep.step}}
+                <div style="width: 110px; float: left; margin: 0 10px 10px 0">
+                  <fennel-todo-target>
+                    <ion-icon name="locate" class="step-target-crosshairs"></ion-icon>
+                  </fennel-todo-target>
+                </div>
+                <div>
+                  {{nextStep.step}}
+                </div>
               </div>
             </ion-col>
           </ion-row>
