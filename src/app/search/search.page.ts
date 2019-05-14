@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.service';
 import { RecipeIndex } from '../core/models/recipe-index';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { StorageRefs } from '../shared/storage/storage-refs';
 
@@ -17,7 +16,6 @@ export class SearchPage implements OnInit {
 
     constructor(
         private searchService: SearchService,
-        private router: Router,
         private storage: Storage
     ) { }
 
@@ -40,10 +38,6 @@ export class SearchPage implements OnInit {
         this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
             this.recipeIndex = searchResults.results;
         });
-    }
-
-    navigateToRecipe(recipeId: any) {
-        this.router.navigateByUrl('/recipe/' + recipeId);
     }
 
 }
