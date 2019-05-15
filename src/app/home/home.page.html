@@ -42,7 +42,7 @@
       <ion-label style="font-weight: bold">Latest Searches</ion-label>
     </ion-list-header>
 
-    <ion-item *ngFor="let recentSearch of historyTop4">
+    <ion-item *ngFor="let recentSearch of historyTop4" [routerLink]="['/search', { searchValue: recentSearch }]">
       <ion-icon slot="start" color="medium" name="search"></ion-icon>
       <ion-label>{{recentSearch}}</ion-label>
     </ion-item>
