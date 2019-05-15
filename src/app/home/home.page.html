@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons padding slot="end">
-      <ion-icon [name]="'search'" [routerLink]="['/search']" style="font-size: larger"></ion-icon>
+      <ion-icon [name]="'search'" [routerLink]="['/search']" style="font-size: 25px"></ion-icon>
     </ion-buttons>
     <ion-title>
       Home
@@ -27,7 +27,7 @@
       </ion-row>
     </ion-item>
 
-    <div padding text-right style="font-style: italic; padding-bottom: 0px;" [routerLink]="['/bookmarks']">
+    <div padding *ngIf="bookmarkCount > 3" [routerLink]="['/bookmarks']" text-right style="font-style: italic; padding-bottom: 0px;">
       <ion-label>
         See all {{bookmarkCount}} bookmarks...
       </ion-label>
@@ -36,7 +36,7 @@
 
   </ion-list>
 
-  <ion-list lines="none" style="padding-top: 0px">
+  <ion-list *ngIf="historyTop4.length > 0" lines="none" style="padding-top: 0px">
 
     <ion-list-header>
       <ion-label style="font-weight: bold">Latest Searches</ion-label>
