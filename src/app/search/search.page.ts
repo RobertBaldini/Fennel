@@ -23,7 +23,7 @@ export class SearchPage implements OnInit {
 
     ngOnInit() {
         this.searchValue = this.route.snapshot.paramMap.get('searchValue');
-        
+
         this.goSearch();
     }
 
@@ -31,16 +31,25 @@ export class SearchPage implements OnInit {
         if (!this.searchValue || this.searchValue.length < 1)
             return;
 
+        this.logSearch();
+
+        this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
+            this.recipeReferences = searchResults.results;
+        });
+    }
+
+    logSearch() {
         this.storage.get(StorageRefs.SEARCHES).then(history => {
             history = history || [];
+
+            // ignore if this was already the most recent search
+            if (history.length > 0 && history[0] == this.searchValue)
+                return;
+
             history.unshift(this.searchValue);
             let top100Truncated = history.slice(0, 100);
             history = top100Truncated;
             this.storage.set(StorageRefs.SEARCHES, history);
-        });
-
-        this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
-            this.recipeReferences = searchResults.results;
         });
     }
 
