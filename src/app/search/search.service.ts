@@ -8,9 +8,16 @@ import { SearchResults } from '../core/models/search-results';
 })
 export class SearchService {
 
+    searchType: string;
+
     constructor(
         private http: HttpClient
     ) { }
+
+    setType(type: string) {
+        this.searchType = type;
+        return this;
+    }
 
     searchQuery(searchValue: string): Observable<SearchResults> {
         const testerUri = "./assets/examples/example-searchresults-steak.json";
@@ -18,7 +25,8 @@ export class SearchService {
             + "?number=100" 
             + "&offset=0" 
             + "&instructionsRequired=true" 
-            + "&query=" + searchValue;
+            + ( !this.searchType ? "" : "&type=" + this.searchType )
+            + ( !searchValue ? "" : "&query=" + searchValue );
         return this.http.get<SearchResults>(apiUri);
     }
 

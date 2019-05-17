@@ -11,6 +11,36 @@ const routes: Routes = [
   {
     path: '',
     component: SearchPage
+  },
+  {
+    path: 'dinner',
+    component: SearchPage,
+    data: { searchType: 'Dinner' }
+  },
+  {
+    path: 'lunch',
+    component: SearchPage,
+    data: { searchType: 'Lunch' }
+  },
+  {
+    path: 'breakfast',
+    component: SearchPage,
+    data: { searchType: 'Breakfast' }
+  },
+  {
+    path: 'appetizer',
+    component: SearchPage,
+    data: { searchType: 'Appetizer' }
+  },
+  {
+    path: 'snacks',
+    component: SearchPage,
+    data: { searchType: 'Snacks' }
+  },
+  {
+    path: 'dessert',
+    component: SearchPage,
+    data: { searchType: 'Dessert' }
   }
 ];
 

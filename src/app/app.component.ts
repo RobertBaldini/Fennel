@@ -37,32 +37,32 @@ export class AppComponent {
         },
         {
             title: 'Dinner',
-            url: '/search',
+            url: '/search/dinner',
             icon: 'restaurant'
         },
         {
             title: 'Lunch',
-            url: '/search',
+            url: '/search/lunch',
             icon: 'restaurant'
         },
         {
             title: 'Breakfast',
-            url: '/search',
+            url: '/search/breakfast',
             icon: 'restaurant'
         },
         {
             title: 'Appetizer',
-            url: '/search',
+            url: '/search/appetizer',
             icon: 'pizza'
         },
         {
             title: 'Snack Time',
-            url: '/search',
+            url: '/search/snacks',
             icon: 'nutrition'
         },
         {
             title: 'Dessert',
-            url: '/recipe', //TODO: change back
+            url: '/search/dessert',
             icon: 'ice-cream'
         }
 

@@ -12,7 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchPage implements OnInit {
 
+    searchType: string;
     searchValue: string;
+    title: string;
+
     recipeReferences: RecipeIndex[] = [] as RecipeIndex[];
 
     constructor(
@@ -22,23 +25,33 @@ export class SearchPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.searchValue = this.route.snapshot.paramMap.get('searchValue');
+        this.searchType = this.route.snapshot.data.searchType;
+        this.searchValue = this.route.snapshot.params.searchValue;
 
-        this.goSearch();
+        this.title = this.searchType || "Search";
+
+        console.log(this.searchType);
+        console.log(this.searchValue);
+
+        if (this.searchType)
+            this.goSearch();
+
+        if (this.searchValue && this.searchValue.length > 1)
+            this.goSearch();
     }
 
     goSearch() {
-        if (!this.searchValue || this.searchValue.length < 1)
-            return;
-
         this.logSearch();
 
-        this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
+        this.searchService.setType(this.searchType).searchQuery(this.searchValue).subscribe(searchResults => {
             this.recipeReferences = searchResults.results;
         });
     }
 
     logSearch() {
+        if (!this.searchValue || this.searchValue.length < 1)
+            return;
+
         this.storage.get(StorageRefs.SEARCHES).then(history => {
             history = history || [];
 
