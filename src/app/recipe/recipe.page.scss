@@ -7,11 +7,12 @@
 
 .fav-slot {
   font-size: 25px;
-  color: #bbb;
+  color: #ccc;
 }
 
 .fav-slot .liked {
   color: #d00;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 
 .ghost {
