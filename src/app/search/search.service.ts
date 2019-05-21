@@ -9,6 +9,7 @@ import { SearchResults } from '../core/models/search-results';
 export class SearchService {
 
     searchType: string;
+    searchOffset: number;
 
     constructor(
         private http: HttpClient
@@ -19,12 +20,18 @@ export class SearchService {
         return this;
     }
 
+    setOffset(skipIndex: number) {
+        this.searchOffset = skipIndex;
+        return this;
+    }
+
     searchQuery(searchValue: string): Observable<SearchResults> {
         const testerUri = "./assets/examples/example-searchresults-steak.json";
         const apiUri = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search" 
             + "?number=100" 
-            + "&offset=0" 
             + "&instructionsRequired=true" 
+            // + "&limitLicense=true" // TODO: re-enable this if needed
+            + ( !this.searchOffset ? "" : + "&offset=" + this.searchOffset )
             + ( !this.searchType ? "" : "&type=" + this.searchType )
             + ( !searchValue ? "" : "&query=" + searchValue );
         return this.http.get<SearchResults>(apiUri);

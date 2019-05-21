@@ -13,7 +13,8 @@ const routes: Routes = [
   },
   { path: 'recipe', loadChildren: './recipe/recipe.module#RecipePageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'bookmarks', loadChildren: './bookmarks/bookmarks.module#BookmarksPageModule' }
+  { path: 'bookmarks', loadChildren: './bookmarks/bookmarks.module#BookmarksPageModule' },
+  { path: 'category', loadChildren: './category/category.module#CategoryPageModule' }
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 
-export interface RecipeIndex {
+export interface RecipeReference {
 	id: number,
 	title: string,
 	readyInMinutes: number,

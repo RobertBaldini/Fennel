@@ -4,27 +4,14 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Search
+      {{ categoryType }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-searchbar [(ngModel)]="searchValue"></ion-searchbar>
-  <!-- 
-    (ionChange)="goSearch()" 
-    debounce="2000"
-    // disabled out of concern for API request daily limits
-  -->
-
-  <br />
-
-  <ion-button expand="full" fill="outline" (click)="goSearch()">
-    Search
-  </ion-button>
-
-  <ion-virtual-scroll [items]="recipeReferences" approxItemHeight="370px">
+  <ion-virtual-scroll [items]="searchResults" approxItemHeight="370px">
     <ion-card *virtualItem="let recipeRef" [routerLink]="['/recipe/' + recipeRef.id]" color="primary">
       <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'" style="height: 206px;"></ion-img>
       <ion-card-header>

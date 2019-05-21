@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from './search.service';
-import { RecipeIndex } from '../core/models/recipe-index';
+import { RecipeReference } from '../core/models/recipe-reference';
 import { Storage } from '@ionic/storage';
 import { StorageRefs } from '../shared/storage/storage-refs';
 import { ActivatedRoute } from '@angular/router';
@@ -12,11 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchPage implements OnInit {
 
-    searchType: string;
     searchValue: string;
-    title: string;
 
-    recipeReferences: RecipeIndex[] = [] as RecipeIndex[];
+    recipeReferences = [] as RecipeReference[];
 
     constructor(
         private searchService: SearchService,
@@ -25,16 +23,7 @@ export class SearchPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.searchType = this.route.snapshot.data.searchType;
         this.searchValue = this.route.snapshot.params.searchValue;
-
-        this.title = this.searchType || "Search";
-
-        console.log(this.searchType);
-        console.log(this.searchValue);
-
-        if (this.searchType)
-            this.goSearch();
 
         if (this.searchValue && this.searchValue.length > 1)
             this.goSearch();
@@ -43,7 +32,7 @@ export class SearchPage implements OnInit {
     goSearch() {
         this.logSearch();
 
-        this.searchService.setType(this.searchType).searchQuery(this.searchValue).subscribe(searchResults => {
+        this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
             this.recipeReferences = searchResults.results;
         });
     }

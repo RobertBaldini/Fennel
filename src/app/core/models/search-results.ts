@@ -1,5 +1,6 @@
-import { RecipeIndex } from './recipe-index';
+import { RecipeReference } from './recipe-reference';
 
 export interface SearchResults {
-    results: RecipeIndex[];
+    query: string;
+    results: RecipeReference[];
 }
