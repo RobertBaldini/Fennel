@@ -24,12 +24,13 @@ export class SearchPage implements OnInit {
 
     ngOnInit() {
         this.searchValue = this.route.snapshot.params.searchValue;
-
-        if (this.searchValue && this.searchValue.length > 1)
-            this.goSearch();
+        this.goSearch();
     }
 
     goSearch() {
+        if (!this.searchValue || this.searchValue.length < 1)
+            return;
+
         this.logSearch();
 
         this.searchService.searchQuery(this.searchValue).subscribe(searchResults => {
@@ -38,9 +39,6 @@ export class SearchPage implements OnInit {
     }
 
     logSearch() {
-        if (!this.searchValue || this.searchValue.length < 1)
-            return;
-
         this.storage.get(StorageRefs.SEARCHES).then(history => {
             history = history || [];
 

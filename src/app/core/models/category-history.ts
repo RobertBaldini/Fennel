@@ -1,5 +1,5 @@
 
-export interface CategoryHistory {
+export class CategoryHistory {
     categoryType: string;
-    maxNumberSeen: number; //ear-mark the listing
+    maxNumberSeen = 0; //ear-mark the listing
 }

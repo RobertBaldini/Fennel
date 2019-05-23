@@ -28,10 +28,10 @@ export class SearchService {
     searchQuery(searchValue: string): Observable<SearchResults> {
         const testerUri = "./assets/examples/example-searchresults-steak.json";
         const apiUri = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search" 
-            + "?number=100" 
+            + "?number=10" 
             + "&instructionsRequired=true" 
             // + "&limitLicense=true" // TODO: re-enable this if needed
-            + ( !this.searchOffset ? "" : + "&offset=" + this.searchOffset )
+            + ( !this.searchOffset ? "" : "&offset=" + this.searchOffset )
             + ( !this.searchType ? "" : "&type=" + this.searchType )
             + ( !searchValue ? "" : "&query=" + searchValue );
         return this.http.get<SearchResults>(apiUri);

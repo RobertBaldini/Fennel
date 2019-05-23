@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { StorageRefs } from '../shared/storage/storage-refs';
 
-import { SearchService } from '../search/search.service';
 import { CategoryHistory } from '../core/models/category-history';
-import { SearchResults } from '../core/models/search-results';
 import { RecipeReference } from '../core/models/recipe-reference';
+import { SearchResults } from '../core/models/search-results';
+
+import { SearchService } from '../search/search.service';
 
 @Component({
     selector: 'app-category',
@@ -15,8 +16,9 @@ import { RecipeReference } from '../core/models/recipe-reference';
 })
 export class CategoryPage implements OnInit {
 
+    allCategoriesHistory = [] as CategoryHistory[];
+    categoryHistory = new CategoryHistory();
     categoryType: string;
-    maxNumberTaken: number = 0;
     searchResults = [] as RecipeReference[];
 
     constructor(
@@ -27,30 +29,48 @@ export class CategoryPage implements OnInit {
 
     ngOnInit() {
         this.categoryType = this.route.snapshot.data.searchType;
+    }
+
+    ionViewDidEnter() {
         if (!this.categoryType) {
             console.log('category type not provided');
             return;
         }
+        this.getNumberAlreadySeen().then(() => this.goSearch());
+    }
 
+    getNumberAlreadySeen() {
         // skip however many of this category that
         // the user has already scrolled through
-        this.storage.get(StorageRefs.CATEGORY_INDEX).then(categoryHistory => {
-            if (!categoryHistory)
+        return this.storage.get(StorageRefs.CATEGORIES).then((categories: CategoryHistory[]) => {
+            this.allCategoriesHistory = categories || [];
+            let currentCategory = this.allCategoriesHistory.find(c => c.categoryType == this.categoryType);
+            if (currentCategory) {
+                this.categoryHistory = currentCategory;
                 return;
-            let currentCategory = categoryHistory.find(ch => ch.categoryType == this.categoryType);
-            if (!currentCategory)
-                return;
-            this.maxNumberTaken = currentCategory.maxNumberSeen;
+            }
+            this.categoryHistory = new CategoryHistory();
+            this.categoryHistory.categoryType = this.categoryType;
+            this.allCategoriesHistory.push(this.categoryHistory);
         });
+    }
 
+    goSearch() {
         this.searchService
             .setType(this.categoryType)
-            .setOffset(this.maxNumberTaken);
+            .setOffset(this.categoryHistory.maxNumberSeen);
 
-        this.searchService.searchQuery(null).subscribe(searchResults => {
+        this.searchService.searchQuery(null).subscribe((searchResults: SearchResults) => {
             this.searchResults = searchResults.results;
-            this.maxNumberTaken += this.searchResults.length;
+            let incrementAmount = this.searchResults.length;
+            this.incrementNumberSeen(incrementAmount);
         });
+    }
+
+    incrementNumberSeen(incrementAmount: number) {
+        this.categoryHistory.maxNumberSeen += incrementAmount;
+        //let currentCategory = this.allCategoriesHistory.find(c => c.categoryType == this.categoryType);
+        this.storage.set(StorageRefs.CATEGORIES, this.allCategoriesHistory);
     }
 
 }
