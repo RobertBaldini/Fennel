@@ -53,6 +53,7 @@
       <ion-item *ngFor="let nextStep of instruction.steps">
 
         <ion-grid>
+
           <ion-row>
             <ion-col>
               <div padding>
@@ -67,9 +68,10 @@
               </div>
             </ion-col>
           </ion-row>
+
           <ion-row *ngFor="let equip of nextStep.equipment">
             <ion-col>
-              <ion-label text-right style="font-style: italic">{{equip.name}}</ion-label>
+              <div text-right style="font-style: italic">{{equip.name}}</div>
             </ion-col>
             <ion-col>
               <fennel-todo-target>
@@ -77,9 +79,10 @@
               </fennel-todo-target>
             </ion-col>
           </ion-row>
+
           <ion-row *ngFor="let ingredient of nextStep.ingredients">
             <ion-col>
-              <ion-label text-right style="font-style: italic">{{ingredient.name}}</ion-label>
+              <div text-right text-wrap style="font-style: italic">{{ingredient.name}}</div>
             </ion-col>
             <ion-col>
               <fennel-todo-target>
@@ -87,6 +90,18 @@
               </fennel-todo-target>
             </ion-col>
           </ion-row>
+
+          <ion-row *ngIf="nextStep.length">
+            <ion-col>
+              <div text-right style="font-style: italic">{{nextStep.length.number}} {{nextStep.length.unit}}</div>
+            </ion-col>
+            <ion-col>
+              <fennel-todo-target>
+                <ion-icon [name]="'alarm'" style="font-size: 100px; color: #ccc;"></ion-icon>
+              </fennel-todo-target>
+            </ion-col>
+          </ion-row>
+
         </ion-grid>
 
       </ion-item>
