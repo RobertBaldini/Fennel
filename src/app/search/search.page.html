@@ -24,13 +24,14 @@
     Search
   </ion-button>
 
-  <ion-virtual-scroll [items]="recipeReferences" approxItemHeight="370px">
-    <ion-card *virtualItem="let recipeRef" [routerLink]="['/recipe/' + recipeRef.id]" color="primary">
-      <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'" style="height: 206px;"></ion-img>
+  <!-- <ion-virtual-scroll [items]="recipeReferences" approxItemWidth="100%"> -->
+    <!-- <ion-card *virtualItem="let recipeRef" [routerLink]="['/recipe/' + recipeRef.id]" color="primary"> -->
+      <ion-card *ngFor="let recipeRef of recipeReferences" [routerLink]="['/recipe/' + recipeRef.id]" color="primary" style="margin: 20px 0;">
+      <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'"></ion-img>
       <ion-card-header>
         <h1 style="margin-top: 0px">{{ recipeRef.title }}</h1>
       </ion-card-header>
     </ion-card>
-  </ion-virtual-scroll>
+  <!-- </ion-virtual-scroll> -->
 
 </ion-content>
