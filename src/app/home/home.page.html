@@ -33,6 +33,11 @@
       </ion-label>
     </div>
 
+    <div padding *ngIf="bookmarkCount <= 3" [routerLink]="['/bookmarks']" text-right style="font-style: italic; padding-bottom: 0px;">
+      <ion-label>
+        Showing all {{bookmarkCount}} bookmarks
+      </ion-label>
+    </div>
 
   </ion-list>
 
