@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SearchResults } from '../core/models/search-results';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class SearchService {
 
     searchType: string;

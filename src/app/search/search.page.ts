@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-search',
     templateUrl: './search.page.html',
     styleUrls: ['./search.page.scss'],
+    providers: [SearchService]
 })
 export class SearchPage implements OnInit {
 
