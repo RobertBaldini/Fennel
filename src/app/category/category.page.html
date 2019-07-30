@@ -11,13 +11,19 @@
 
 <ion-content padding>
 
-  <ion-virtual-scroll [items]="searchResults" approxItemHeight="370px">
-    <ion-card *virtualItem="let recipeRef" [routerLink]="['/recipe/' + recipeRef.id]" color="primary">
-      <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'" style="height: 206px;"></ion-img>
-      <ion-card-header>
-        <h1 style="margin-top: 0px">{{ recipeRef.title }}</h1>
-      </ion-card-header>
-    </ion-card>
-  </ion-virtual-scroll>
+  <ion-card *ngFor="let recipeRef of searchResults" [routerLink]="['/recipe/' + recipeRef.id]" color="primary" style="margin: 20px 0;">
+    <img src="assets/images/recipe-placeholder-image.jpg" *ngIf="!recipeRef.isImageLoaded">
+    <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'" (ionImgDidLoad)="recipeRef.isImageLoaded = true"></ion-img>
+    <ion-card-header>
+      <h1 style="margin-top: 0px">{{ recipeRef.title }}</h1>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-infinite-scroll treshold="15%" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
