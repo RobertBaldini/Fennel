@@ -15,7 +15,8 @@
     <img src="assets/images/recipe-placeholder-image.jpg" *ngIf="!recipeRef.isImageLoaded">
     <ion-img [src]="'https://webknox.com/recipeImages/' + recipeRef.id + '-556x370.jpg'" (ionImgDidLoad)="recipeRef.isImageLoaded = true"></ion-img>
     <ion-card-header>
-      <h1 style="margin-top: 0px">{{ recipeRef.title }}</h1>
+      <!-- TODO: add pipe for title scrubbing -->
+      <h1 style="margin-top: 0px">{{ recipeRef.title.replace('Dinner Tonight: ', '') }}</h1>
     </ion-card-header>
   </ion-card>
 

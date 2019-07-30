@@ -41,7 +41,7 @@ export class CategoryPage implements OnInit {
     }
 
     async goSearch() {
-        await this.getNumberAlreadySeen();
+        var searchOffset = await this.getNumberAlreadySeen();
 
         var searchCategory = this.categoryType
                                  .replace('Lunch', 'sandwich') // closest thing
@@ -51,17 +51,22 @@ export class CategoryPage implements OnInit {
                                  .replace('Drinks', 'drink')
                                  .toLowerCase();
 
+        var excluded = (searchCategory === 'sandwich')
+                        ? 'cookie,cookies,ice cream'
+                        : null;
+
         this.searchService
             .setType(searchCategory)
-            .setOffset(this.categoryHistory.maxNumberSeen);
+            .setOffset(searchOffset)
+            .excludeIngredients(excluded);
 
         let searchResult = await this.searchService.searchQuery(null).toPromise();
         if (!searchResult || !searchResult.results)
             return;
+        var results = searchResult.results;
+        results.forEach(result => this.searchResults.push(result));
 
-        searchResult.results.forEach(result => this.searchResults.push(result));
-
-        let incrementAmount = this.searchResults.length;
+        let incrementAmount = results.length;
         await this.incrementNumberSeen(incrementAmount);
     }
 
@@ -73,15 +78,18 @@ export class CategoryPage implements OnInit {
         let currentCategory = this.allCategoriesHistory.find(c => c.categoryType == this.categoryType);
         if (currentCategory) {
             this.categoryHistory = currentCategory;
-            return;
+            return this.categoryHistory.maxNumberSeen;
         }
         this.categoryHistory = new CategoryHistory();
         this.categoryHistory.categoryType = this.categoryType;
         this.allCategoriesHistory.push(this.categoryHistory);
+        return 0;
     }
 
     async incrementNumberSeen(incrementAmount: number) {
-        if (this.categoryHistory.maxNumberSeen >= 880) // offset limit is 900 max from the 3rd party api
+        // offset limit is 900 max from the 3rd party api.
+        // increment of 0 means we reached the end.
+        if (this.categoryHistory.maxNumberSeen >= 880 || incrementAmount === 0)
             this.categoryHistory.maxNumberSeen = 0;
         else
             this.categoryHistory.maxNumberSeen += incrementAmount;
