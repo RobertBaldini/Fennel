@@ -43,8 +43,16 @@ export class CategoryPage implements OnInit {
     async goSearch() {
         await this.getNumberAlreadySeen();
 
+        var searchCategory = this.categoryType
+                                 .replace('Lunch', 'sandwich') // closest thing
+                                 // API says 'main course' is correct, but it doesnt have as much
+                                 //.replace('Dinner', 'main course') 
+                                 .replace('Snacks', 'side dish')
+                                 .replace('Drinks', 'drink')
+                                 .toLowerCase();
+
         this.searchService
-            .setType(this.categoryType)
+            .setType(searchCategory)
             .setOffset(this.categoryHistory.maxNumberSeen);
 
         let searchResult = await this.searchService.searchQuery(null).toPromise();
@@ -73,7 +81,7 @@ export class CategoryPage implements OnInit {
     }
 
     async incrementNumberSeen(incrementAmount: number) {
-        if (this.categoryHistory.maxNumberSeen >= 890) // offset limit is 900 max from the 3rd party api
+        if (this.categoryHistory.maxNumberSeen >= 880) // offset limit is 900 max from the 3rd party api
             this.categoryHistory.maxNumberSeen = 0;
         else
             this.categoryHistory.maxNumberSeen += incrementAmount;

@@ -50,20 +50,30 @@ export class AppComponent {
             url: '/category/breakfast',
             icon: 'restaurant'
         },
-        {
-            title: 'Appetizer',
-            url: '/category/appetizer',
-            icon: 'pizza'
-        },
+        // {
+        //     title: 'Appetizer',
+        //     url: '/category/appetizer',
+        //     icon: 'pizza'
+        // },
         {
             title: 'Snack Time',
             url: '/category/snacks',
             icon: 'nutrition'
         },
         {
+            title: 'Salad',
+            url: '/category/salad',
+            icon: 'leaf'
+        },
+        {
             title: 'Dessert',
             url: '/category/dessert',
             icon: 'ice-cream'
+        },
+        {
+            title: 'Drinks',
+            url: '/category/drink',
+            icon: 'pint'
         }
 
     ];

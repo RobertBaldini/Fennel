@@ -27,20 +27,30 @@ const routes: Routes = [
     component: CategoryPage,
     data: { searchType: 'Breakfast' }
   },
-  {
-    path: 'appetizer',
-    component: CategoryPage,
-    data: { searchType: 'Appetizer' }
-  },
+  // {
+  //   path: 'appetizer',
+  //   component: CategoryPage,
+  //   data: { searchType: 'Appetizer' }
+  // },
   {
     path: 'snacks',
     component: CategoryPage,
     data: { searchType: 'Snacks' }
   },
   {
+    path: 'salad',
+    component: CategoryPage,
+    data: { searchType: 'Salad' }
+  },
+  {
     path: 'dessert',
     component: CategoryPage,
     data: { searchType: 'Dessert' }
+  },
+  {
+    path: 'drink',
+    component: CategoryPage,
+    data: { searchType: 'Drinks' }
   }
 ];
 
